@@ -2,6 +2,8 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
+@tailwind utilities;
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -149,7 +151,6 @@
   --sidebar-ring: oklch(0.541 0.281 293.009);
 }
 
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -157,4 +158,45 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+  .h1-bold {
+    @apply text-[30px] font-bold leading-[42px] tracking-tighter;
+  }
+  .h2-bold {
+    @apply text-[24px] font-bold leading-[31.2px];
+  }
+  .h2-semibold {
+    @apply text-[24px] font-semibold leading-[31.2px];
+  }
+  .h3-bold {
+    @apply text-[20px] font-bold leading-[26px];
+  }
+  .h3-semibold {
+    @apply text-[20px] font-semibold leading-[24.8px];
+  }
+  .h6-bold {
+    @apply text-sm md:text-base lg:text-lg font-bold;
+  }
+}
+
+@utility primary-header {
+  font: var(--color-primary);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  letter-spacing: -0.01em;
+  font-family: var(--font-space-grotesk);
+}
+
+@utility primary-text-gradient {
+  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility primary-gradient {
+  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
 }
