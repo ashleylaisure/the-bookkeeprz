@@ -12,11 +12,12 @@ export default function SiteHeader() {
           orientation="vertical"
           className="mx-2 data-[orientation=vertical]:h-4"
         />
+        
         <h1 className="text-base font-medium">Dashboard</h1>
         <div className="ml-auto flex items-center gap-2">
-          <Button variant={"ghost"} size="sm" className="sm:flex">
+          {/* <Button variant={"ghost"} size="sm" className="sm:flex">
             toggle?
-          </Button>
+          </Button> */}
         </div>
       </div>
     </header>
