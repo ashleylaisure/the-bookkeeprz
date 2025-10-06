@@ -3,7 +3,7 @@ const ROUTES = {
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
 
-    DASHBOARD: '/',
+    DASHBOARD: '/dashboard',
     MY_BOOKS: '/my_books',
     BOOK_DETAIL: (Id: string) => `/my_books/${Id}`,
     ADD_BOOK: 'add_book',

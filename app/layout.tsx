@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider"
 
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = localFont({
     src: './fonts/Inter-VF.ttf',
@@ -44,6 +45,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     {children}
+                    <Toaster position="top-center" richColors />
                 </ThemeProvider>    
             </body>
         </html>
