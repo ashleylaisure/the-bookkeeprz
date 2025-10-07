@@ -8,9 +8,10 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signUp } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
+import Link from "next/link";
 
-export default function SignUpForm() {
+export default function SignInForm() {
     const [isPending, setIsPending] = useState(false);
     const router = useRouter();
 
@@ -19,18 +20,14 @@ export default function SignUpForm() {
 
         const formData = new FormData(evt.target as HTMLFormElement);
 
-        const name = String(formData.get("name"));
-        if (!name) return toast.error("Name is required");
-
         const email = String(formData.get("email"));
         if (!email) return toast.error("Email is required");
 
         const password = String(formData.get("password"));
         if (!password) return toast.error("Password is required");
 
-        await signUp.email(
+        await signIn.email(
             {
-                name,
                 email,
                 password,
             },
@@ -46,25 +43,30 @@ export default function SignUpForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
-            <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" name="name" />
-            </div>
+        <form onSubmit={handleSubmit} className="max-w-sm w-full space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input type="email" id="email" name="email" />
+      </div>
 
-            <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email" name="email" />
-            </div>
+      <div className="space-y-2">
+        <div className="flex justify-between items-center gap-2">
+          <Label htmlFor="password">Password</Label>
+          <Link
+            tabIndex={-1}
+            href="/auth/forgot-password"
+            className="text-sm italic text-muted-foreground hover:text-foreground"
+          >
+            Forgot password?
+          </Link>
+        </div>
 
-            <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input type="password" id="password" name="password" />
-            </div>
+        <Input type="password" id="password" name="password" />
+      </div>
 
-            <Button type="submit" className="w-full" disabled={isPending}>
-                Register
-            </Button>
-        </form>
+      <Button type="submit" className="w-full" disabled={isPending}>
+        Login
+      </Button>
+    </form>
     );
 }

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const BookshelfPage = () => {
-  return (
-    <div>BookshelfPage</div>
-  )
-}
+    return <div>BookshelfPage</div>;
+};
 
-export default BookshelfPage
+export default BookshelfPage;

@@ -1,9 +1,7 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import NavMain from "./NavMain"
-import NavUser from "./NavUser"
 import {
     Sidebar,
     SidebarContent,
@@ -12,13 +10,17 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import BrandIcon from "../brand/BrandIcon"
-import BrandText from "../brand/BrandText"
-import NavStats from "./NavStats"
+} from "@/components/ui/sidebar";
 
-export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+import BrandIcon from "../brand/BrandIcon";
+import BrandText from "../brand/BrandText";
+import NavMain from "./NavMain";
+import NavStats from "./NavStats";
+import NavUser from "./NavUser";
 
+export default function AppSidebar({
+    ...props
+}: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
@@ -37,7 +39,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                 </SidebarMenu>
             </SidebarHeader>
 
-            <SidebarContent className="flex height-full justify-between flex-col">
+            <SidebarContent className="height-full flex flex-col justify-between">
                 <NavMain />
                 <NavStats />
             </SidebarContent>
@@ -46,6 +48,5 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                 <NavUser />
             </SidebarFooter>
         </Sidebar>
-    )
+    );
 }
-

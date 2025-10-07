@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
     SidebarGroup,
@@ -10,39 +10,46 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     useSidebar,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 const NavStats = () => {
+    const { state } = useSidebar();
+    const isCollapsed = state == "collapsed";
 
-    const {state} = useSidebar();
-    const isCollapsed = state == 'collapsed'
-    
     return (
-        <SidebarGroup className={isCollapsed ? 'hidden' : ''}>
-            <SidebarGroupLabel className="text-xs font-medium text-slate-400 uppercase tracking-wider px-3 py-2 mt-6">
+        <SidebarGroup className={isCollapsed ? "hidden" : ""}>
+            <SidebarGroupLabel className="mt-6 px-3 py-2 text-xs font-medium tracking-wider text-slate-400 uppercase">
                 Quick Stats
             </SidebarGroupLabel>
-                <SidebarGroupContent>
-                    <div className="px-4 py-3 space-y-3">
-                        <div className="flex items-center gap-3 text-sm">
-                            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                            <span className="text-slate-400">Currently Reading</span>
-                            <span className="ml-auto font-semibold text-slate-200">3</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-sm">
-                            <div className="w-2 h-2 bg-amber-400 rounded-full"></div>
-                            <span className="text-slate-400">Books This Year</span>
-                            <span className="ml-auto font-semibold text-amber-400">24</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-sm">
-                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                            <span className="text-slate-400">Reading Goal</span>
-                            <span className="ml-auto font-semibold text-purple-400">48/50</span>
-                        </div>
+            <SidebarGroupContent>
+                <div className="space-y-3 px-4 py-3">
+                    <div className="flex items-center gap-3 text-sm">
+                        <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-400"></div>
+                        <span className="text-slate-400">
+                            Currently Reading
+                        </span>
+                        <span className="ml-auto font-semibold text-slate-200">
+                            3
+                        </span>
                     </div>
-                </SidebarGroupContent>
+                    <div className="flex items-center gap-3 text-sm">
+                        <div className="h-2 w-2 rounded-full bg-amber-400"></div>
+                        <span className="text-slate-400">Books This Year</span>
+                        <span className="ml-auto font-semibold text-amber-400">
+                            24
+                        </span>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm">
+                        <div className="h-2 w-2 rounded-full bg-purple-400"></div>
+                        <span className="text-slate-400">Reading Goal</span>
+                        <span className="ml-auto font-semibold text-purple-400">
+                            48/50
+                        </span>
+                    </div>
+                </div>
+            </SidebarGroupContent>
         </SidebarGroup>
-    )
-}
+    );
+};
 
-export default NavStats
+export default NavStats;

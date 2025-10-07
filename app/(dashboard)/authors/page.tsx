@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const AuthorsPage = () => {
-  return (
-    <div>AuthorsPage</div>
-  )
-}
+    return <div>AuthorsPage</div>;
+};
 
-export default AuthorsPage
+export default AuthorsPage;

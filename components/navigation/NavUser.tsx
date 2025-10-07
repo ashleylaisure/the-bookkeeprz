@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
     ChevronDown,
     Download,
@@ -5,12 +7,12 @@ import {
     MoonIcon,
     Settings,
     SunIcon,
-    User
+    User,
 } from "lucide-react";
-import {
-    Avatar,
-    AvatarFallback
-} from "../ui/avatar";
+
+import useSystemTheme from "@/hooks/use-system-theme";
+
+import { Avatar, AvatarFallback } from "../ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -18,26 +20,26 @@ import {
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-    DropdownMenuTrigger
+    DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import {
     SidebarFooter,
     SidebarMenu,
     SidebarMenuButton,
-    SidebarMenuItem
+    SidebarMenuItem,
 } from "../ui/sidebar";
-import { useEffect, useState } from "react";
-import useSystemTheme from "@/hooks/use-system-theme";
+import Link from "next/link";
+import ROUTES from "@/constants/routes";
+import LogoutLink from "./LogoutLink";
 
 export default function NavUser() {
-
     const [mounted, setMounted] = useState(false);
-    const {theme, setTheme} = useSystemTheme();
+    const { theme, setTheme } = useSystemTheme();
 
     // Prevent hydration mismatch
-    useEffect(() => setMounted(true), [])
+    useEffect(() => setMounted(true), []);
 
-    if (!mounted) return null
+    if (!mounted) return null;
 
     return (
         <SidebarFooter>
@@ -46,26 +48,31 @@ export default function NavUser() {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <SidebarMenuButton size="lg" className="group">
-
                                 <Avatar className="h-8 w-8 rounded-lg">
                                     {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-                                    <AvatarFallback className="rounded-lg bg-primary text-white">AL</AvatarFallback>
+                                    <AvatarFallback className="bg-primary rounded-lg text-white">
+                                        AL
+                                    </AvatarFallback>
                                 </Avatar>
 
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     {/* <span className="truncate font-medium">{user.name}</span>
                                     <span className="truncate text-xs">{user.email}</span> */}
-                                    <span className="truncate font-medium">name</span>
-                                    <span className="truncate text-xs">email</span>
+                                    <span className="truncate font-medium">
+                                        name
+                                    </span>
+                                    <span className="truncate text-xs">
+                                        email
+                                    </span>
                                 </div>
 
                                 <ChevronDown className="ml-auto transition-transform group-data-[state=open]:rotate-270" />
                             </SidebarMenuButton>
                         </DropdownMenuTrigger>
 
-                        <DropdownMenuContent 
+                        <DropdownMenuContent
                             side={"right"}
-                            align="end" 
+                            align="end"
                             className="w-[--radix-popper-anchor-width] min-w-56 rounded-lg"
                             sideOffset={25}
                         >
@@ -73,11 +80,17 @@ export default function NavUser() {
                                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                     <Avatar className="h-8 w-8 rounded-lg">
                                         {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-                                        <AvatarFallback className="rounded-lg bg-primary text-muted">AL</AvatarFallback>
+                                        <AvatarFallback className="bg-primary text-muted rounded-lg">
+                                            AL
+                                        </AvatarFallback>
                                     </Avatar>
                                     <div className="grid flex-1 text-left text-sm leading-tight">
-                                        <span className="truncate font-medium">name</span>
-                                        <span className="truncate text-xs">email</span>
+                                        <span className="truncate font-medium">
+                                            name
+                                        </span>
+                                        <span className="truncate text-xs">
+                                            email
+                                        </span>
                                     </div>
                                 </div>
                             </DropdownMenuLabel>
@@ -85,48 +98,49 @@ export default function NavUser() {
 
                             <DropdownMenuGroup>
                                 <DropdownMenuItem>
-                                    {/* <Link href={ROUTES.PROFILE} className="flex items-center gap-4"> */}
-                                        <User className="h-[1.2rem] w-[1.2rem]" />
-                                        Profile
-                                    {/* </Link> */}
+                                    <Link href={ROUTES.PROFILE} className="flex items-center gap-4">
+                                    <User className="h-[1.2rem] w-[1.2rem]" />
+                                    Profile
+                                    </Link>
                                 </DropdownMenuItem>
 
                                 <DropdownMenuItem>
-                                    <Settings className="h-[1.2rem] w-[1.2rem] mr-2" />
+                                    <Settings className="mr-2 h-[1.2rem] w-[1.2rem]" />
                                     Settings
                                 </DropdownMenuItem>
 
                                 <DropdownMenuItem>
                                     {/* <Link href={ROUTES.IMPORT} className="flex items-center gap-4"> */}
-                                        <Download className="h-[1.2rem] w-[1.2rem]" />
-                                        Import Books
+                                    <Download className="h-[1.2rem] w-[1.2rem]" />
+                                    Import Books
                                     {/* </Link> */}
                                 </DropdownMenuItem>
                             </DropdownMenuGroup>
                             <DropdownMenuSeparator />
 
                             {theme === "light" ? (
-                                <DropdownMenuItem onClick={() => setTheme("dark")}>
-                                    <MoonIcon className="h-[1.2rem] w-[1.2rem] mr-2" />
+                                <DropdownMenuItem
+                                    onClick={() => setTheme("dark")}
+                                >
+                                    <MoonIcon className="mr-2 h-[1.2rem] w-[1.2rem]" />
                                     Dark Mode
                                 </DropdownMenuItem>
-                            ): (
-                                <DropdownMenuItem onClick={() => setTheme("light")}>
-                                    <SunIcon className="h-[1.2rem] w-[1.2rem] mr-2" />
+                            ) : (
+                                <DropdownMenuItem
+                                    onClick={() => setTheme("light")}
+                                >
+                                    <SunIcon className="mr-2 h-[1.2rem] w-[1.2rem]" />
                                     Light Mode
                                 </DropdownMenuItem>
                             )}
 
                             <DropdownMenuItem variant="destructive">
-                                <LogOut className="h-[1.2rem] w-[1.2rem] mr-2" />
-                                Sign Out
-                                {/* <SignoutLink /> */}
+                                <LogoutLink />
                             </DropdownMenuItem>
-
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </SidebarMenuItem>
             </SidebarMenu>
         </SidebarFooter>
-    )
+    );
 }

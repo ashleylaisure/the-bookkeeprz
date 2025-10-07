@@ -1,54 +1,55 @@
-import ROUTES from "./routes";
-import { 
-    // BarChart3, 
-    BookMarked, 
-    BookOpen, 
-    // DollarSign, 
-    // Heart, 
-    LibraryBig, 
-    // PenTool, 
-    // Quote, 
-    // Search, 
-    TrendingUp, 
-    // User 
+import {
+    // BarChart3,
+    BookMarked,
+    BookOpen,
+    // DollarSign,
+    // Heart,
+    LibraryBig,
+    // PenTool,
+    // Quote,
+    // Search,
+    TrendingUp,
+    // User
 } from "lucide-react";
+
+import ROUTES from "./routes";
 
 export const sidebarLinks = [
     {
-        label: 'Dashboard',
+        label: "Dashboard",
         route: ROUTES.DASHBOARD,
-        icon: TrendingUp
-    }, 
+        icon: TrendingUp,
+    },
     {
-        label: 'My Books',
+        label: "My Books",
         route: ROUTES.MY_BOOKS,
-        icon: BookOpen
-    }, 
+        icon: BookOpen,
+    },
     {
         label: "Authors",
         route: ROUTES.AUTHORS,
-        icon: BookMarked
+        icon: BookMarked,
     },
     {
-        label: 'Bookshelves',
+        label: "Bookshelves",
         route: ROUTES.BOOKSHELVES,
         icon: LibraryBig,
-    }, 
+    },
     // {
     //     label: 'Series',
     //     route: ROUTES.SERIES,
     //     icon: LibraryBig,
-    // }, 
+    // },
     // {
     //     label: 'Journal',
     //     route: ROUTES.JOURNAL,
     //     icon: PenTool,
-    // }, 
+    // },
     // {
     //     label: "Quotes",
     //     route: ROUTES.QUOTES,
     //     icon: Quote
-    // }, 
+    // },
     // {
     //     label: 'Whishlist',
     //     route: ROUTES.WHISHLIST,
@@ -63,15 +64,15 @@ export const sidebarLinks = [
     //     label: 'Analytics',
     //     route: ROUTES.ANALYTICS,
     //     icon: BarChart3
-    // }, 
+    // },
     // {
     //     label: 'Search Books',
     //     route: ROUTES.SEARCH,
     //     icon: Search,
-    // }, 
+    // },
     // {
     //     label: 'Profile',
     //     route: ROUTES.PROFILE,
     //     icon: User,
     // }
-]
+];
