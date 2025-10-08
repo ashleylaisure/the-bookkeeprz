@@ -7,7 +7,8 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { signOut } from "@/lib/auth-client";
 import { toast } from "sonner";
-import { Spinner } from "../ui/spinner";
+import { Spinner } from "@/components/ui/spinner";
+
 
 const LogoutLink = () => {
     const [loading, setLoading] = useState(false);

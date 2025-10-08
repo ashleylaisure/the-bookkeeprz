@@ -1,11 +1,14 @@
-import { SignInForm } from "@/components/forms/SignInForm";
+import AuthForm from "@/components/forms/auth/AuthForm";
 
 
 export default function SignInPage() {
     return (
-        <div>
-            <h1>Sign In Page</h1>
-            <SignInForm />
-        </div>
+        <>
+            <AuthForm
+                formHeader="Welcome back"
+                formSubHeader="Sign in to continue to your account"
+                formType="SIGN_IN"
+            />
+        </>
     );
 }

@@ -30,7 +30,7 @@ import {
 } from "../ui/sidebar";
 import Link from "next/link";
 import ROUTES from "@/constants/routes";
-import LogoutLink from "./LogoutLink";
+import LogoutLink from "../forms/auth/LogoutLink";
 
 export default function NavUser() {
     const [mounted, setMounted] = useState(false);

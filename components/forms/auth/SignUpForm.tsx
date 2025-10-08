@@ -1,15 +1,15 @@
 'use client'
 
-import { signUpDefaultValues, signUpSchema, SignUpSchema } from "@/types/schema/signUpSchema"
-import { useForm } from "react-hook-form"
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
-import { Spinner } from "../ui/spinner"
-import { signUp } from "@/lib/auth-client"
 import ROUTES from "@/constants/routes"
+import { signUp } from "@/lib/auth-client"
+import { signUpDefaultValues, signUpSchema, SignUpSchema } from "@/types/schema/signUpSchema"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { Button } from "../../ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../ui/form"
+import { Input } from "../../ui/input"
+import { Spinner } from "../../ui/spinner"
 
 import { useRouter } from "next/navigation"
 
@@ -50,9 +50,10 @@ export function SignUpForm() {
                         <FormItem>
                             <FormLabel>Name</FormLabel>
                             <FormControl>
-                                <Input 
-                                    // placeholder="John Doe" 
+                                <Input
+                                    placeholder={`Enter your ${field.name}`} 
                                     {...field} 
+                                    className="paragraph-regular no-focus min-h-12 rounded-1.5 border"
                                 />
                             </FormControl>
                             {/* <FormDescription>
@@ -72,8 +73,9 @@ export function SignUpForm() {
                             <FormControl>
                                 <Input 
                                     type="email"
-                                    // placeholder="shadcn" 
-                                    {...field} 
+                                    placeholder={`Enter your ${field.name}`}
+                                    {...field}
+                                    className="paragraph-regular no-focus min-h-12 rounded-1.5 border"
                                 />
                             </FormControl>
                             {/* <FormDescription>
@@ -92,8 +94,9 @@ export function SignUpForm() {
                             <FormControl>
                                 <Input 
                                     type="password"
-                                    // placeholder="shadcn" 
-                                    {...field} 
+                                    placeholder={`Enter your ${field.name}`}
+                                    {...field}
+                                    className="paragraph-regular no-focus min-h-12 rounded-1.5 border"
                                 />
                             </FormControl>
                             {/* <FormDescription>
@@ -104,7 +107,7 @@ export function SignUpForm() {
                     )}
                 />
 
-                <Button type="submit" disabled={isSubmitting} className="w-full">
+                <Button type="submit" disabled={isSubmitting} className="w-full min-h-12 cursor-pointer">
                     {isSubmitting
                         ? <div className="flex gap-4"><Spinner /> Signing Up...</div>
                         : "Sign Up"

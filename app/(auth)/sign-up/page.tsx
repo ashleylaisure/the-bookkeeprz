@@ -1,11 +1,13 @@
-import { SignUpForm } from "@/components/forms/SignUpForm";
-import React from "react";
+import AuthForm from "@/components/forms/auth/AuthForm";
 
 export default function SignUpPage() {
     return (
-        <div>
-            <h1>Sign Up Page</h1>
-            <SignUpForm />
-        </div>
+        <>
+            <AuthForm
+                formHeader="Welcome to your ultimate book-reading companion"
+                formSubHeader="Create an account to start your journey"
+                formType="SIGN_UP"
+            />
+        </>
     );
 }
