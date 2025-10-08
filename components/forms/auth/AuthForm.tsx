@@ -58,11 +58,11 @@ const AuthForm = ({formHeader, formSubHeader, formType}: AuthFormProps) => {
             {/* Toggle between sign in and sign up */}
             {formType === "SIGN_IN" ? (
                     <div className="flex-center gap-4 flex-col mt-8">
-                        <p className="text-sm text-center">
+                        <p className="text-sm text-center text-muted-foreground">
                             Don&apos;t have an account?{" "}
                             <Link
                                 href={ROUTES.SIGN_UP}
-                                className="paragraph-semibold primary-text-gradient"
+                                className="font-semibold text-primary hover:underline"
                             >
                             Sign up
                             </Link>
@@ -70,12 +70,12 @@ const AuthForm = ({formHeader, formSubHeader, formType}: AuthFormProps) => {
                     </div>
                 ) : (
                     <div className="flex-center gap-4 flex-col mt-8">
-                        <p className="text-center text-sm">
+                        <p className="text-center text-sm text-muted-foreground">
                             Already have an account?{" "}
                             <Link
                                 href={ROUTES.SIGN_IN}
-                                className="paragraph-semibold primary-text-gradient"
-                                >
+                                className="font-semibold text-primary hover:underline"
+                            >
                                 Sign in
                             </Link>
                         </p>

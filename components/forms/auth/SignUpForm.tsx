@@ -33,7 +33,7 @@ export function SignUpForm() {
                     toast.error(error.error.message || "Failed to sign up.")
                 },
                 onSuccess: () => {
-                    toast.success("Sign up successful! Please check your email to verify your account.")
+                    toast.success("Sign up successful! Welcome to your Bookkeeprz.")
                     router.push(ROUTES.DASHBOARD)
                 }
             }
