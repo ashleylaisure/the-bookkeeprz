@@ -17,10 +17,14 @@ import BrandText from "../brand/BrandText";
 import NavMain from "./NavMain";
 import NavStats from "./NavStats";
 import NavUser from "./NavUser";
+import { User } from "@/lib/auth";
 
-export default function AppSidebar({
-    ...props
-}: React.ComponentProps<typeof Sidebar>) {
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+    user?: User;
+}
+
+export default function AppSidebar({ user, ...props }: AppSidebarProps) {
+
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
@@ -45,7 +49,7 @@ export default function AppSidebar({
             </SidebarContent>
 
             <SidebarFooter className="mt-15">
-                <NavUser />
+                <NavUser user={user} />
             </SidebarFooter>
         </Sidebar>
     );

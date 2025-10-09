@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -8,14 +9,14 @@ import {
     MoonIcon,
     Settings,
     SunIcon,
-    User,
+    User2,
 } from "lucide-react";
 
 import ROUTES from "@/constants/routes";
 import useSystemTheme from "@/hooks/use-system-theme";
 
 import LogoutLink from "../forms/auth/LogoutLink";
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -31,8 +32,10 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "../ui/sidebar";
+import type { User } from "@/lib/auth";
 
-export default function NavUser() {
+
+export default function NavUser( { user }: { user?: User } ) {
     const [mounted, setMounted] = useState(false);
     const { theme, setTheme } = useSystemTheme();
 
@@ -49,21 +52,17 @@ export default function NavUser() {
                         <DropdownMenuTrigger asChild>
                             <SidebarMenuButton size="lg" className="group">
                                 <Avatar className="h-8 w-8 rounded-lg">
-                                    {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
+                                    {user?.image && (
+                                        <AvatarImage src={user.image} alt={user.name} />
+                                    )}
                                     <AvatarFallback className="bg-primary rounded-lg text-white">
-                                        AL
+                                        {user?.name?.[0]}
                                     </AvatarFallback>
                                 </Avatar>
 
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    {/* <span className="truncate font-medium">{user.name}</span>
-                                    <span className="truncate text-xs">{user.email}</span> */}
-                                    <span className="truncate font-medium">
-                                        name
-                                    </span>
-                                    <span className="truncate text-xs">
-                                        email
-                                    </span>
+                                    <span className="truncate font-medium">{user?.name}</span>
+                                    <span className="truncate text-xs">{user?.email}</span>
                                 </div>
 
                                 <ChevronDown className="ml-auto transition-transform group-data-[state=open]:rotate-270" />
@@ -79,18 +78,16 @@ export default function NavUser() {
                             <DropdownMenuLabel className="p-0 font-normal">
                                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                     <Avatar className="h-8 w-8 rounded-lg">
-                                        {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
+                                        {user?.image && (
+                                            <AvatarImage src={user.image} alt={user.name} />
+                                        )}
                                         <AvatarFallback className="bg-primary text-muted rounded-lg">
                                             AL
                                         </AvatarFallback>
                                     </Avatar>
                                     <div className="grid flex-1 text-left text-sm leading-tight">
-                                        <span className="truncate font-medium">
-                                            name
-                                        </span>
-                                        <span className="truncate text-xs">
-                                            email
-                                        </span>
+                                        <span className="truncate font-medium">{user?.name}</span>
+                                        <span className="truncate text-xs">{user?.email}</span>
                                     </div>
                                 </div>
                             </DropdownMenuLabel>
@@ -102,7 +99,7 @@ export default function NavUser() {
                                         href={ROUTES.PROFILE}
                                         className="flex items-center gap-4"
                                     >
-                                        <User className="h-[1.2rem] w-[1.2rem]" />
+                                        <User2 className="h-[1.2rem] w-[1.2rem]" />
                                         Profile
                                     </Link>
                                 </DropdownMenuItem>

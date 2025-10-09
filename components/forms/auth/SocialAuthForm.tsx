@@ -8,12 +8,15 @@ import ROUTES from "@/constants/routes";
 import { signIn } from "@/lib/auth-client";
 
 import { Button } from "../../ui/button";
+import { useState } from "react";
 
 interface Props {
     formType: "SIGN_IN" | "SIGN_UP";
 }
 
 const SocialAuthForm = ({ formType }: Props) => {
+    const [loading, setLoading] = useState(false);
+    
     async function handleSignIn(provider: "google" | "github") {
         const res = await signIn.social(
             {
@@ -21,6 +24,12 @@ const SocialAuthForm = ({ formType }: Props) => {
                 callbackURL: ROUTES.DASHBOARD,
             },
             {
+                onRequest: () => {
+                    setLoading(true);
+                },
+                onResponse: () => {
+                    setLoading(false);
+                },
                 onError: (error) => {
                     toast.error(error.error.message || "Failed to sign in.");
                 },
@@ -39,6 +48,7 @@ const SocialAuthForm = ({ formType }: Props) => {
                     variant={"muted"}
                     className="min-h-12 w-full cursor-pointer"
                     onClick={() => handleSignIn("google")}
+                    disabled={loading}
                 >
                     <Image
                         src="/icons/google.svg"

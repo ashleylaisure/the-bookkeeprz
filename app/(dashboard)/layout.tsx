@@ -1,12 +1,17 @@
 import AppSidebar from "@/components/navigation/AppSidebar";
 import SiteHeader from "@/components/navigation/SiteHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { getServerSession } from "@/lib/get-session";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+
+    const session = await getServerSession();
+    const user = session?.user;
+    
     return (
         <SidebarProvider
             style={
@@ -16,7 +21,7 @@ export default function DashboardLayout({
                 } as React.CSSProperties
             }
         >
-            <AppSidebar variant="inset" />
+            <AppSidebar variant="inset" user={session?.user}/>
             <SidebarInset>
                 <SiteHeader />
                 <div className="flex flex-1 flex-col">
