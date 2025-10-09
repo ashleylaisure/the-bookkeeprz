@@ -23,6 +23,8 @@ const ROUTES = {
     PROFILE_EDIT: (id: string) => `/profile/${id}/edit`,
     SETTINGS: "/settings",
     NOT_FOUND: "/404",
+    EMAIL_VERIFY: "/email-verified",
+    FORGOT_PASSWORD: "/forgot-password",
 };
 
 export default ROUTES;

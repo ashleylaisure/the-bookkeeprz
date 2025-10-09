@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import {
@@ -10,8 +11,10 @@ import {
     User,
 } from "lucide-react";
 
+import ROUTES from "@/constants/routes";
 import useSystemTheme from "@/hooks/use-system-theme";
 
+import LogoutLink from "../forms/auth/LogoutLink";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import {
     DropdownMenu,
@@ -28,9 +31,6 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "../ui/sidebar";
-import Link from "next/link";
-import ROUTES from "@/constants/routes";
-import LogoutLink from "../forms/auth/LogoutLink";
 
 export default function NavUser() {
     const [mounted, setMounted] = useState(false);
@@ -98,9 +98,12 @@ export default function NavUser() {
 
                             <DropdownMenuGroup>
                                 <DropdownMenuItem>
-                                    <Link href={ROUTES.PROFILE} className="flex items-center gap-4">
-                                    <User className="h-[1.2rem] w-[1.2rem]" />
-                                    Profile
+                                    <Link
+                                        href={ROUTES.PROFILE}
+                                        className="flex items-center gap-4"
+                                    >
+                                        <User className="h-[1.2rem] w-[1.2rem]" />
+                                        Profile
                                     </Link>
                                 </DropdownMenuItem>
 

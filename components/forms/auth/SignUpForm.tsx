@@ -1,43 +1,63 @@
-'use client'
+"use client";
 
-import ROUTES from "@/constants/routes"
-import { signUp } from "@/lib/auth-client"
-import { signUpDefaultValues, signUpSchema, SignUpSchema } from "@/types/schema/signUpSchema"
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
-import { Button } from "../../ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../ui/form"
-import { Input } from "../../ui/input"
-import { Spinner } from "../../ui/spinner"
+import { useRouter } from "next/navigation";
 
-import { useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
+import { LoadingButton } from "@/components/loading-button";
+import ROUTES from "@/constants/routes";
+import { signUp } from "@/lib/auth-client";
+import {
+    type SignUpForm,
+    signUpDefaultValues,
+    signUpSchema,
+} from "@/types/schema/signUpSchema";
+
+import { PasswordInput } from "../../password-input";
+import { Button } from "../../ui/button";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "../../ui/form";
+import { Input } from "../../ui/input";
+import { Spinner } from "../../ui/spinner";
 
 export function SignUpForm() {
     const router = useRouter();
 
-    const form = useForm<SignUpSchema>({
+    const form = useForm<SignUpForm>({
         resolver: zodResolver(signUpSchema),
-        defaultValues: signUpDefaultValues
-    })
+        defaultValues: signUpDefaultValues,
+    });
 
-    const { isSubmitting } = form.formState
+    const loading = form.formState.isSubmitting;
 
-    async function onSubmit(data: SignUpSchema) {
-
+    async function onSubmit({ email, password, name }: SignUpForm) {
         const res = await signUp.email(
-            {...data, callbackURL: ROUTES.DASHBOARD},
             {
-                onError: error => {
-                    toast.error(error.error.message || "Failed to sign up.")
+                email,
+                password,
+                name,
+                callbackURL: ROUTES.EMAIL_VERIFY,
+            },
+            {
+                onError: (error) => {
+                    toast.error(error.error.message || "Failed to sign up.");
                 },
                 onSuccess: () => {
-                    toast.success("Sign up successful! Welcome to your Bookkeeprz.")
-                    router.push(ROUTES.DASHBOARD)
-                }
+                    toast.success(
+                        "Sign up successful! Please Verify your email to continue."
+                    );
+                    router.push(ROUTES.DASHBOARD);
+                },
             }
-        )
+        );
     }
 
     return (
@@ -51,14 +71,11 @@ export function SignUpForm() {
                             <FormLabel>Name</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder={`Enter your ${field.name}`} 
-                                    {...field} 
-                                    className="paragraph-regular no-focus min-h-12 rounded-1.5 border"
+                                    placeholder={`Enter your ${field.name}`}
+                                    {...field}
+                                    className="no-focus rounded-1.5 min-h-12 border text-sm"
                                 />
                             </FormControl>
-                            {/* <FormDescription>
-                                This is your public display name.
-                            </FormDescription> */}
                             <FormMessage />
                         </FormItem>
                     )}
@@ -71,16 +88,13 @@ export function SignUpForm() {
                         <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input 
+                                <Input
                                     type="email"
                                     placeholder={`Enter your ${field.name}`}
                                     {...field}
-                                    className="paragraph-regular no-focus min-h-12 rounded-1.5 border"
+                                    className="no-focus rounded-1.5 min-h-12 border text-sm"
                                 />
                             </FormControl>
-                            {/* <FormDescription>
-                                This is your public display name.
-                            </FormDescription> */}
                             <FormMessage />
                         </FormItem>
                     )}
@@ -92,28 +106,45 @@ export function SignUpForm() {
                         <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input 
-                                    type="password"
+                                <PasswordInput
+                                    autoComplete="new-password"
                                     placeholder={`Enter your ${field.name}`}
                                     {...field}
-                                    className="paragraph-regular no-focus min-h-12 rounded-1.5 border"
+                                    className="no-focus rounded-1.5 min-h-12 border text-sm"
                                 />
                             </FormControl>
-                            {/* <FormDescription>
-                                This is your public display name.
-                            </FormDescription> */}
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="passwordConfirmation"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Confirm Password</FormLabel>
+                            <FormControl>
+                                <PasswordInput
+                                    autoComplete="new-password"
+                                    placeholder="Confirm your password"
+                                    {...field}
+                                    className="no-focus rounded-1.5 min-h-12 border text-sm"
+                                />
+                            </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
 
-                <Button type="submit" disabled={isSubmitting} className="w-full min-h-12 cursor-pointer">
-                    {isSubmitting
-                        ? <div className="flex gap-4"><Spinner /> Signing Up...</div>
-                        : "Sign Up"
-                    }
-                </Button>
+                <LoadingButton
+                    type="submit"
+                    loading={loading}
+                    loadingText="Signing Up..."
+                    className="min-h-12 w-full cursor-pointer"
+                >
+                    Sign Up
+                </LoadingButton>
             </form>
         </Form>
-    )
+    );
 }
