@@ -25,6 +25,7 @@ import {
     FormMessage,
 } from "../../ui/form";
 import { Input } from "../../ui/input";
+import { signUpEmail } from "@/actions/sign-up.actions";
 
 export function SignUpForm() {
     const router = useRouter();
@@ -36,26 +37,39 @@ export function SignUpForm() {
 
     const loading = form.formState.isSubmitting;
 
-    async function onSubmit({ email, password, name }: SignUpForm) {
-        await signUp.email(
-            {
-                email,
-                password,
-                name,
-                callbackURL: ROUTES.EMAIL_VERIFY,
-            },
-            {
-                onRequest: () => {},
-                onResponse: () => {},
-                onError: (error) => {
-                    toast.error(error.error.message || "Failed to sign up.");
-                },
-                onSuccess: () => {
-                    toast.success("Sign up successful!");
-                    router.push(ROUTES.DASHBOARD);
-                },
-            }
-        );
+    async function onSubmit(data: SignUpForm) {
+        const { error } = await signUpEmail(data);
+
+        if (error) {
+            const message =
+                typeof error === "string"
+                    ? error
+                    : (error && (error as { message?: string }).message) || "Failed to sign up.";
+            toast.error(message);
+        } else {
+            toast.success("Sign up successful! Welcome aboard!");
+            router.push(ROUTES.DASHBOARD);
+        }
+        // client action
+        // await signUp.email(
+        //     {
+        //         email,
+        //         password,
+        //         name,
+        //         callbackURL: ROUTES.EMAIL_VERIFY,
+        //     },
+        //     {
+        //         onRequest: () => {},
+        //         onResponse: () => {},
+        //         onError: (error) => {
+        //             toast.error(error.error.message || "Failed to sign up.");
+        //         },
+        //         onSuccess: () => {
+        //             toast.success("Sign up successful!");
+        //             router.push(ROUTES.DASHBOARD);
+        //         },
+        //     }
+        // );
     }
 
     return (

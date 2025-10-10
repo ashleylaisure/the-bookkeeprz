@@ -27,6 +27,7 @@ import {
     FormMessage,
 } from "../../ui/form";
 import { Input } from "../../ui/input";
+import { signInEmail } from "@/actions/sign-in.action";
 
 
 export function SignInForm() {
@@ -40,20 +41,33 @@ export function SignInForm() {
     const loading = form.formState.isSubmitting;
 
     async function onSubmit(data: SignInSchema) {
-        const res = await signIn.email(
-            { ...data },
-            {
-                onRequest: () => {},
-                onResponse: () => {},
-                onError: (error) => {
-                    toast.error(error.error.message || "Failed to sign in.");
-                },
-                onSuccess: () => {
-                    toast.success("Sign In successful! Good to have you back!");
-                    router.push(ROUTES.DASHBOARD);
-                },
-            }
-        );
+        const { error} = await signInEmail(data);
+
+        if (error) {
+            const message =
+                typeof error === "string"
+                    ? error
+                    : (error && (error as { message?: string }).message) || "Failed to sign in.";
+            toast.error(message);
+        } else {
+            toast.success("Sign In successful! Good to have you back!");
+            router.push(ROUTES.DASHBOARD);
+        }
+        // Client Action
+        // const res = await signIn.email(
+        //     { ...data },
+        //     {
+        //         onRequest: () => {},
+        //         onResponse: () => {},
+        //         onError: (error) => {
+        //             toast.error(error.error.message || "Failed to sign in.");
+        //         },
+        //         onSuccess: () => {
+        //             toast.success("Sign In successful! Good to have you back!");
+        //             router.push(ROUTES.DASHBOARD);
+        //         },
+        //     }
+        // );
     }
 
     return (

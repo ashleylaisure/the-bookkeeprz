@@ -21,7 +21,7 @@ import ROUTES from "@/constants/routes";
 export default async function LandingPage() {
     return (
         <div className="bg-background text-foreground min-h-screen font-sans">
-            {/* Landing Page Navigation Bar */}
+            {/* TODO: Implement Landing Page Navigation Bar (with mobile sheet trigger) */}
 
             {/* Hero Section */}
             <section className="px-4 pt-20 pb-16 sm:px-6 lg:px-8">
