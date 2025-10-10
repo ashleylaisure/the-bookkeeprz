@@ -17,7 +17,7 @@ const signUpSchema = z
 
         password: z
             .string()
-            .min(6, { message: "Password must be at least 6 characters long." })
+            .min(8, { message: "Password must be at least 8 characters long." })
             .max(100, { message: "Password cannot exceed 100 characters." }),
         // .regex(/[A-Z]/, {
         //     message: "Password must contain at least one uppercase letter.",

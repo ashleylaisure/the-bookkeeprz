@@ -43,6 +43,8 @@ export function SignInForm() {
         const res = await signIn.email(
             { ...data },
             {
+                onRequest: () => {},
+                onResponse: () => {},
                 onError: (error) => {
                     toast.error(error.error.message || "Failed to sign in.");
                 },

@@ -10,7 +10,6 @@ export default async function DashboardLayout({
 }) {
 
     const session = await getServerSession();
-    const user = session?.user;
     
     return (
         <SidebarProvider

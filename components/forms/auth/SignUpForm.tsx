@@ -16,7 +16,6 @@ import {
 } from "@/types/schema/signUpSchema";
 
 import { PasswordInput } from "../../password-input";
-import { Button } from "../../ui/button";
 import {
     Form,
     FormControl,
@@ -26,7 +25,6 @@ import {
     FormMessage,
 } from "../../ui/form";
 import { Input } from "../../ui/input";
-import { Spinner } from "../../ui/spinner";
 
 export function SignUpForm() {
     const router = useRouter();
@@ -39,7 +37,7 @@ export function SignUpForm() {
     const loading = form.formState.isSubmitting;
 
     async function onSubmit({ email, password, name }: SignUpForm) {
-        const res = await signUp.email(
+        await signUp.email(
             {
                 email,
                 password,
@@ -47,13 +45,13 @@ export function SignUpForm() {
                 callbackURL: ROUTES.EMAIL_VERIFY,
             },
             {
+                onRequest: () => {},
+                onResponse: () => {},
                 onError: (error) => {
                     toast.error(error.error.message || "Failed to sign up.");
                 },
                 onSuccess: () => {
-                    toast.success(
-                        "Sign up successful! Please Verify your email to continue."
-                    );
+                    toast.success("Sign up successful!");
                     router.push(ROUTES.DASHBOARD);
                 },
             }
