@@ -1,7 +1,8 @@
 'use server'
 
-import { auth } from "@/lib/auth";
+import { auth, ErrorCode } from "@/lib/auth";
 import { signInSchema, SignInSchema } from "@/types/schema/signInSchema";
+import { APIError } from "better-auth";
 
 export async function signInEmail(data: SignInSchema) {
     // ✅ validate on the server too
@@ -28,19 +29,17 @@ export async function signInEmail(data: SignInSchema) {
     // Handle errors
     } catch (err) {
         // Handle specific API errors
-        if (err instanceof Error) {
-            // const errCode = err.body ? (err.body.code as ErrorCode) : "UNKNOWN";
-            return {error: "Oops, something went wrong while logging in."};
+        if (err instanceof APIError) {
+            const errCode = err.body ? (err.body.code as ErrorCode) : "UNKNOWN_ERROR";
+            // return {error: "Oops, something went wrong while logging in."};
 
             // Map specific error codes to user-friendly messages
-            // switch (errCode) {
-            //     case "USER_ALREADY_EXISTS":
-            //         return { error: "That email is already registered." };
-            //     case "INVALID_PASSWORD":
-            //         return { error: "Password does not meet requirements." };
-            //     default:
-            //         return { error: err.message };
-            // }
+            switch (errCode) {
+                // case "EMAIL_NOT_VERIFIED":
+                //     return { error: "That email is not verified." };
+                default:
+                    return { error: err.message };
+            }
         }
 
         // Handle generic errors

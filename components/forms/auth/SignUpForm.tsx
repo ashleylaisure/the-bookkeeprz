@@ -25,7 +25,7 @@ import {
     FormMessage,
 } from "../../ui/form";
 import { Input } from "../../ui/input";
-import { signUpEmail } from "@/actions/sign-up.actions";
+import { signUpEmail } from "@/actions/sign-up.action";
 
 export function SignUpForm() {
     const router = useRouter();

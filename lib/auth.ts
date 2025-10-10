@@ -1,8 +1,10 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
+import { createAuthMiddleware, APIError } from "better-auth/api";
 
 import db from "@/lib/prisma";
+import { normalizeName, VALID_DOMAINS } from "./utils";
 
 export const auth = betterAuth({
     database: prismaAdapter(db, {
@@ -10,6 +12,24 @@ export const auth = betterAuth({
     }),
     emailAndPassword: {
         enabled: true,
+    },
+    hooks: {
+        before: createAuthMiddleware(async (ctx) => {
+            if (ctx.path === '/sign-up/email') {
+                const email = String(ctx.body.email);
+                const domain = email.split("@")[1].toLowerCase();
+
+                if (!VALID_DOMAINS().includes(domain)) {
+                    throw new APIError("BAD_REQUEST", { message: "Invalid domain. Please use a valid email." });
+                }
+
+                const name = normalizeName(ctx.body.name)
+
+                return {
+                    context: { ...ctx.context, body: { ...ctx.body, name } }
+                };
+            }
+        })
     },
     advanced: {
         database: {
