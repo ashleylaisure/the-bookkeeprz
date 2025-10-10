@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
 import { createAuthMiddleware, APIError } from "better-auth/api";
+import { admin } from "better-auth/plugins"
 
 import db from "@/lib/prisma";
 import { normalizeName, VALID_DOMAINS } from "./utils";
@@ -49,7 +50,15 @@ export const auth = betterAuth({
             maxAge: 60 * 60 * 24 * 7, // 7 days client cookie cache
         },
     },
-    plugins: [nextCookies()],
+    plugins: [
+        nextCookies(),
+        admin(
+            {
+                defaultRole: "USER",
+                adminRoles: ["ADMIN"],
+            }
+        )
+    ],
 });
 
 export type ErrorCode = typeof auth.$ERROR_CODES | "UNKNOWN_ERROR";
