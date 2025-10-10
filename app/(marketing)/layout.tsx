@@ -7,8 +7,6 @@ export default async function LandingPageLayout({
 }: {
     children: ReactNode;
 }) {
-    // const session = await getSession();
-    // if(session) redirect("/dashboard");
 
     return <>{children}</>;
 }

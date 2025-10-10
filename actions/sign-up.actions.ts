@@ -30,7 +30,7 @@ export async function signUpEmail(data: SignUpForm) {
     // Handle errors
     } catch (err) {
         // Handle specific API errors
-        if (err instanceof Error) {
+        if (err instanceof APIError) {
             // const errCode = err.body ? (err.body.code as ErrorCode) : "UNKNOWN";
             return {error: "Oops, something went wrong."};
 

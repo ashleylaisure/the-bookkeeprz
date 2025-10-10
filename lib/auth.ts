@@ -23,13 +23,15 @@ export const auth = betterAuth({
         },
     },
     session: {
+        expiresIn: 30 * 24 * 60 * 60, // 30 days server session expiry
         cookieCache: {
             enabled: true,
-            maxAge: 60 * 60 * 24 * 7, // 7 days
+            maxAge: 60 * 60 * 24 * 7, // 7 days client cookie cache
         },
     },
     plugins: [nextCookies()],
 });
 
+export type ErrorCode = typeof auth.$ERROR_CODES | "UNKNOWN_ERROR";
 export type Session = typeof auth.$Infer.Session;
 export type User = typeof auth.$Infer.Session.user;

@@ -1,9 +1,26 @@
-import { User } from '@/lib/auth'
-import React from 'react'
+'use client'
 
-const UserProfileForm = ({user} : {user?: User}) => {
+import { useSession } from '@/lib/auth-client'
+import React from 'react'
+import { Card, CardHeader } from '../ui/card';
+import { Spinner } from '../ui/spinner';
+
+const UserProfileForm = () => {
+
+    // Fetch session on the client
+    const {data: session, isPending} = useSession();
+    const user = session?.user
+
+    if (isPending) {
+        return <Spinner />
+    }
+
     return (
-        <div>UserProfileForm</div>
+        <Card>
+            <CardHeader>
+                Welcome back, {user?.name}! This is your profile information
+            </CardHeader>
+        </Card>
     )
 }
 
