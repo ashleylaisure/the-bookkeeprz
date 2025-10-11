@@ -19,7 +19,7 @@ type UserProfileSchema = z.infer<typeof userProfileSchema>;
 
 const userProfileDefaultValues: UserProfileSchema = {
     name:  "",
-    image: null,
+    image: '',
 };
 
 export { userProfileSchema, userProfileDefaultValues, type UserProfileSchema };

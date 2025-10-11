@@ -18,12 +18,11 @@ const SocialAuthForm = ({ formType }: Props) => {
     const [loading, setLoading] = useState(false);
     
     async function handleSignIn(provider: "google" | "github") {
-        const res = await signIn.social(
-            {
-                provider: provider,
-                callbackURL: ROUTES.DASHBOARD,
-            },
-            {
+        await signIn.social({
+            provider: provider,
+            callbackURL: ROUTES.DASHBOARD,
+            errorCallbackURL: ROUTES.ERROR,
+            fetchOptions: {
                 onRequest: () => {
                     setLoading(true);
                 },
@@ -34,10 +33,10 @@ const SocialAuthForm = ({ formType }: Props) => {
                     toast.error(error.error.message || "Failed to sign in.");
                 },
                 onSuccess: () => {
-                    toast.success("Sign In successful! Good to have you back!");
+                    toast.success("Sign In successful! Welcome to Bookkeepr!");
                 },
             }
-        );
+        });
     }
 
     return (

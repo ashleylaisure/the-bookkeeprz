@@ -13,7 +13,7 @@ export function PasswordInput({
     ...props
 }: Omit<ComponentProps<typeof Input>, "type">) {
     const [showPassword, setShowPassword] = useState(false);
-    const Icon = showPassword ? EyeOffIcon : EyeIcon;
+    const Icon = showPassword ? EyeIcon : EyeOffIcon;
 
     return (
         <div className="relative">

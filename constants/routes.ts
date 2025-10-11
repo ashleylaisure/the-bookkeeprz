@@ -2,6 +2,7 @@ const ROUTES = {
     HOME: "/",
     SIGN_IN: "/sign-in",
     SIGN_UP: "/sign-up",
+    ERROR: "/error",
 
     DASHBOARD: "/dashboard",
     MY_BOOKS: "/my_books",
