@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
@@ -22,20 +22,32 @@ interface UserAvatarProps {
 }
 
 const variantMap = {
-  sm: "h-8 w-8 text-xs",  // 32px
-  md: "h-12 w-12 text-sm", // 48px
-  lg: "h-16 w-16 text-lg", // 64px
-  xl: "h-24 w-24 text-2xl" // 96px
+    sm: "h-8 w-8 text-xs", // 32px
+    md: "h-12 w-12 text-sm", // 48px
+    lg: "h-16 w-16 text-lg", // 64px
+    xl: "h-24 w-24 text-2xl", // 96px
 };
 
-export default function UserAvatar({ name, image, variant = "sm", shape = "rounded" }: UserAvatarProps) {
+export default function UserAvatar({
+    name,
+    image,
+    variant = "sm",
+    shape = "rounded",
+}: UserAvatarProps) {
     const sizeClasses = variantMap[variant];
-    const shapeClass = shape === "circle" ? "rounded-full" : shape === "square" ? "rounded-sm" : "rounded-lg";
+    const shapeClass =
+        shape === "circle"
+            ? "rounded-full"
+            : shape === "square"
+              ? "rounded-sm"
+              : "rounded-lg";
 
     return (
         <Avatar className={`${sizeClasses} ${shapeClass}`}>
             <AvatarImage src={image ?? ""} alt={name || "User Avatar"} />
-            <AvatarFallback className={`bg-primary text-muted ${shapeClass} flex items-center justify-center`}>
+            <AvatarFallback
+                className={`bg-primary text-muted ${shapeClass} flex items-center justify-center`}
+            >
                 {getInitials(name)}
             </AvatarFallback>
         </Avatar>

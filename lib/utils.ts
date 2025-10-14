@@ -6,11 +6,13 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function normalizeName(name: string) {
-    return name
-        .trim()
-        .replace(/\s+/g, " ")
-        // .replace(/[^a-zA-Z\s'-]/g, "")
-        .replace(/\b\w/g, (char) => char.toUpperCase());
+    return (
+        name
+            .trim()
+            .replace(/\s+/g, " ")
+            // .replace(/[^a-zA-Z\s'-]/g, "")
+            .replace(/\b\w/g, (char) => char.toUpperCase())
+    );
 }
 
 export const VALID_DOMAINS = () => {

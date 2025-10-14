@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { signUpEmail } from "@/actions/sign-up.action";
 import { LoadingButton } from "@/components/loading-button";
 import ROUTES from "@/constants/routes";
 import { signUp } from "@/lib/auth-client";
@@ -25,7 +26,6 @@ import {
     FormMessage,
 } from "../../ui/form";
 import { Input } from "../../ui/input";
-import { signUpEmail } from "@/actions/sign-up.action";
 
 export function SignUpForm() {
     const router = useRouter();
@@ -44,7 +44,8 @@ export function SignUpForm() {
             const message =
                 typeof error === "string"
                     ? error
-                    : (error && (error as { message?: string }).message) || "Failed to sign up.";
+                    : (error && (error as { message?: string }).message) ||
+                      "Failed to sign up.";
             toast.error(message);
         } else {
             toast.success("Sign up successful! Welcome aboard!");

@@ -1,8 +1,9 @@
-'use server'
+"use server";
 
-import { auth, ErrorCode } from "@/lib/auth";
-import { signInSchema, SignInSchema } from "@/types/schema/signInSchema";
 import { APIError } from "better-auth";
+
+import { ErrorCode, auth } from "@/lib/auth";
+import { SignInSchema, signInSchema } from "@/types/schema/signInSchema";
 
 export async function signInEmail(data: SignInSchema) {
     // ✅ validate on the server too
@@ -23,14 +24,16 @@ export async function signInEmail(data: SignInSchema) {
             },
         });
 
-    // If successful, return null error
-    return { error: null };
+        // If successful, return null error
+        return { error: null };
 
-    // Handle errors
+        // Handle errors
     } catch (err) {
         // Handle specific API errors
         if (err instanceof APIError) {
-            const errCode = err.body ? (err.body.code as ErrorCode) : "UNKNOWN_ERROR";
+            const errCode = err.body
+                ? (err.body.code as ErrorCode)
+                : "UNKNOWN_ERROR";
             // return {error: "Oops, something went wrong while logging in."};
 
             // Map specific error codes to user-friendly messages

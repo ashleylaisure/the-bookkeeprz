@@ -1,10 +1,12 @@
-'use server'
-import { headers } from "next/headers";
-import { cache } from "react";
-import { auth } from "./auth";
+"use server";
 
-import { redirect }  from "next/navigation";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { cache } from "react";
+
 import ROUTES from "@/constants/routes";
+
+import { auth } from "./auth";
 
 export const getServerSession = cache(async () => {
     console.log("Fetching session in getServerSession");

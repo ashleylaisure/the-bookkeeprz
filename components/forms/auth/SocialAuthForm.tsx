@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 import { toast } from "sonner";
 
@@ -8,7 +9,6 @@ import ROUTES from "@/constants/routes";
 import { signIn } from "@/lib/auth-client";
 
 import { Button } from "../../ui/button";
-import { useState } from "react";
 
 interface Props {
     formType: "SIGN_IN" | "SIGN_UP";
@@ -16,7 +16,7 @@ interface Props {
 
 const SocialAuthForm = ({ formType }: Props) => {
     const [loading, setLoading] = useState(false);
-    
+
     async function handleSignIn(provider: "google" | "github") {
         await signIn.social({
             provider: provider,
@@ -35,7 +35,7 @@ const SocialAuthForm = ({ formType }: Props) => {
                 onSuccess: () => {
                     toast.success("Sign In successful! Welcome to Bookkeepr!");
                 },
-            }
+            },
         });
     }
 

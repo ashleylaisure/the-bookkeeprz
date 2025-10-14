@@ -11,20 +11,19 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { User } from "@/lib/auth";
 
 import BrandIcon from "../brand/BrandIcon";
 import BrandText from "../brand/BrandText";
 import NavMain from "./NavMain";
 import NavStats from "./NavStats";
 import NavUser from "./NavUser";
-import { User } from "@/lib/auth";
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
     user?: User;
 }
 
 export default function AppSidebar({ user, ...props }: AppSidebarProps) {
-
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>

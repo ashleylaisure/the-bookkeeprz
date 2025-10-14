@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -29,6 +31,8 @@ export const metadata: Metadata = {
     },
 };
 
+const queryClient = new QueryClient();
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -39,15 +43,17 @@ export default function RootLayout({
             <body
                 className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
             >
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    {children}
-                    <Toaster position="top-center" richColors />
-                </ThemeProvider>
+                <QueryClientProvider client={queryClient}>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        {children}
+                        <Toaster position="top-center" richColors />
+                    </ThemeProvider>
+                </QueryClientProvider>
             </body>
         </html>
     );

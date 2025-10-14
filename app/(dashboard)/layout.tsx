@@ -8,9 +8,8 @@ export default async function DashboardLayout({
 }: {
     children: React.ReactNode;
 }) {
-
     const session = await getServerSession();
-    
+
     return (
         <SidebarProvider
             style={
@@ -20,7 +19,7 @@ export default async function DashboardLayout({
                 } as React.CSSProperties
             }
         >
-            <AppSidebar variant="inset" user={session?.user}/>
+            <AppSidebar variant="inset" user={session?.user} />
             <SidebarInset>
                 <SiteHeader />
                 <div className="flex flex-1 flex-col">

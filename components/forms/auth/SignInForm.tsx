@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { signInEmail } from "@/actions/sign-in.action";
 import { LoadingButton } from "@/components/loading-button";
 import { PasswordInput } from "@/components/password-input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -27,8 +28,6 @@ import {
     FormMessage,
 } from "../../ui/form";
 import { Input } from "../../ui/input";
-import { signInEmail } from "@/actions/sign-in.action";
-
 
 export function SignInForm() {
     const router = useRouter();
@@ -41,13 +40,14 @@ export function SignInForm() {
     const loading = form.formState.isSubmitting;
 
     async function onSubmit(data: SignInSchema) {
-        const { error} = await signInEmail(data);
+        const { error } = await signInEmail(data);
 
         if (error) {
             const message =
                 typeof error === "string"
                     ? error
-                    : (error && (error as { message?: string }).message) || "Failed to sign in.";
+                    : (error && (error as { message?: string }).message) ||
+                      "Failed to sign in.";
             toast.error(message);
         } else {
             toast.success("Sign In successful! Good to have you back!");

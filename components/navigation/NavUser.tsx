@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -14,7 +13,9 @@ import {
 
 import ROUTES from "@/constants/routes";
 import useSystemTheme from "@/hooks/use-system-theme";
+import type { User } from "@/lib/auth";
 
+import UserAvatar from "../UserAvatar";
 import LogoutLink from "../forms/auth/LogoutLink";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
@@ -32,11 +33,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "../ui/sidebar";
-import type { User } from "@/lib/auth";
-import UserAvatar from "../UserAvatar";
 
-
-export default function NavUser( { user }: { user?: User } ) {
+export default function NavUser({ user }: { user?: User }) {
     const [mounted, setMounted] = useState(false);
     const { theme, setTheme } = useSystemTheme();
 
@@ -52,10 +50,17 @@ export default function NavUser( { user }: { user?: User } ) {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <SidebarMenuButton size="lg" className="group">
-                                <UserAvatar name={user?.name} image={user?.image} />
+                                <UserAvatar
+                                    name={user?.name}
+                                    image={user?.image}
+                                />
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-medium">{user?.name}</span>
-                                    <span className="truncate text-xs">{user?.email}</span>
+                                    <span className="truncate font-medium">
+                                        {user?.name}
+                                    </span>
+                                    <span className="truncate text-xs">
+                                        {user?.email}
+                                    </span>
                                 </div>
 
                                 <ChevronDown className="ml-auto transition-transform group-data-[state=open]:rotate-270" />
@@ -70,10 +75,17 @@ export default function NavUser( { user }: { user?: User } ) {
                         >
                             <DropdownMenuLabel className="p-0 font-normal">
                                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                                    <UserAvatar name={user?.name} image={user?.image} />
+                                    <UserAvatar
+                                        name={user?.name}
+                                        image={user?.image}
+                                    />
                                     <div className="grid flex-1 text-left text-sm leading-tight">
-                                        <span className="truncate font-medium">{user?.name}</span>
-                                        <span className="truncate text-xs">{user?.email}</span>
+                                        <span className="truncate font-medium">
+                                            {user?.name}
+                                        </span>
+                                        <span className="truncate text-xs">
+                                            {user?.email}
+                                        </span>
                                     </div>
                                 </div>
                             </DropdownMenuLabel>

@@ -7,6 +7,5 @@ export default async function LandingPageLayout({
 }: {
     children: ReactNode;
 }) {
-
     return <>{children}</>;
 }
