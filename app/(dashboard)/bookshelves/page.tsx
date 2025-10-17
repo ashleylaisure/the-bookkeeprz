@@ -1,6 +1,6 @@
 import React from "react";
 
-import BookshelfCard from "@/components/cards/BookshelfCard";
+import BookshelfCard from "@/components/cards/bookshelf-cards";
 import BookshelfForm from "@/components/forms/bookshelf-form";
 
 const BookshelfPage = () => {

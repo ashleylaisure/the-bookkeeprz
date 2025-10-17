@@ -20,7 +20,12 @@ const createBookshelf = async (data: BookshelfSchema) => {
 
 // READ all bookshelves
 const getBookshelves = async () => {
-    return await db.bookshelf.findMany();
+    return await db.bookshelf.findMany({
+        orderBy: [
+            { updatedAt: "desc" },
+            { createdAt: "desc" },
+        ]
+    });
 };
 
 // READ a bookshelf by ID
