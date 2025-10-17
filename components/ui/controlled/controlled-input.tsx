@@ -1,9 +1,19 @@
 "use client";
+
+import { ComponentProps } from "react";
+
+import { FieldValues, Path, useFormContext } from "react-hook-form";
+
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { ComponentProps } from "react";
-import {  FieldValues, Path, useFormContext } from "react-hook-form";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../form";
+
+import {
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "../form";
 
 type InputProps<T extends FieldValues> = {
     name: Path<T>;
@@ -21,7 +31,6 @@ const ControlledInput = <T extends FieldValues>({
     placeholder,
     ...props
 }: InputProps<T>) => {
-    
     const form = useFormContext<T>();
 
     return (
@@ -36,14 +45,18 @@ const ControlledInput = <T extends FieldValues>({
                         <Input
                             type={type}
                             id={name}
-                            className={cn("no-focus rounded-1.5 min-h-12 border text-sm", className)}
-                            placeholder={placeholder ?? `Enter your ${field.name}`}
+                            className={cn(
+                                "no-focus rounded-1.5 min-h-12 border text-sm",
+                                className
+                            )}
+                            placeholder={
+                                placeholder ?? `Enter your ${field.name}`
+                            }
                             {...field}
                             {...props}
                         />
                     </FormControl>
                     <FormMessage />
-
                 </FormItem>
             )}
         />

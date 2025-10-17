@@ -1,16 +1,22 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { createBookshelf, deleteBookshelf, getBookshelf, getBookshelves, updateBookshelf } from "@/services/bookshelf.services";
-import { BookshelfSchema } from "@/types/schema/bookshelfSchema";
 import useBookshelfStore from "@/lib/store/useBookshelfStore";
+import {
+    createBookshelf,
+    deleteBookshelf,
+    getBookshelf,
+    getBookshelves,
+    updateBookshelf,
+} from "@/services/bookshelf.services";
+import { BookshelfSchema } from "@/types/schema/bookshelfSchema";
 
 // CREATE
 const useCreateBookshelf = () => {
     const queryClient = useQueryClient();
-    
+
     return useMutation({
-        mutationFn: async (data: BookshelfSchema)=> {
+        mutationFn: async (data: BookshelfSchema) => {
             await createBookshelf(data);
         },
         onSuccess: () => {
@@ -18,7 +24,7 @@ const useCreateBookshelf = () => {
             queryClient.invalidateQueries({ queryKey: ["bookshelves"] });
         },
     });
-}
+};
 
 // READ
 const useBookshelves = () => {
@@ -35,9 +41,8 @@ const useBookshelf = () => {
         queryKey: ["bookshelves", { selectedBookshelfId }],
         queryFn: () => getBookshelf(selectedBookshelfId!),
         enabled: !!selectedBookshelfId,
-    })
-}
-
+    });
+};
 
 // UPDATE
 const useUpdateBookshelf = () => {
@@ -45,14 +50,14 @@ const useUpdateBookshelf = () => {
 
     return useMutation({
         mutationFn: async (data: BookshelfSchema) => {
-            await updateBookshelf(data)
+            await updateBookshelf(data);
         },
         onSuccess: () => {
             toast.success("Bookshelf updated successfully.");
             queryClient.invalidateQueries({ queryKey: ["bookshelves"] });
         },
-    })
-}
+    });
+};
 
 // DELETE
 const useDeleteBookshelf = () => {
@@ -69,10 +74,10 @@ const useDeleteBookshelf = () => {
     });
 };
 
-export { 
-    useCreateBookshelf, 
-    useUpdateBookshelf, 
+export {
+    useCreateBookshelf,
+    useUpdateBookshelf,
     useBookshelf,
     useBookshelves,
-    useDeleteBookshelf
+    useDeleteBookshelf,
 };

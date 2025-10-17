@@ -12,6 +12,12 @@ const bookshelfSchema = z.intersection(
             .trim()
             .max(1000, "Description is too long")
             .optional(),
+        color: z
+            .string()
+            .regex(
+                /^#([0-9a-fA-F]{3}){1,2}$/,
+                "Color must be a valid hex code"
+            ),
     }),
     z.discriminatedUnion("action", [
         z.object({ action: z.literal("create") }),
@@ -28,6 +34,7 @@ const bookshelfDefaultValues: BookshelfSchema = {
     action: "create",
     name: "",
     description: "",
+    color: "#7f22fe",
 };
 
 export { bookshelfSchema, bookshelfDefaultValues, type BookshelfSchema };

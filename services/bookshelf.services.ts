@@ -1,4 +1,4 @@
-'use server'
+"use server";
 
 import { executeAction } from "@/lib/excuteAction";
 import db from "@/lib/prisma";
@@ -9,9 +9,10 @@ const createBookshelf = async (data: BookshelfSchema) => {
     await executeAction({
         actionFn: () =>
             db.bookshelf.create({
-                data : {
+                data: {
                     name: data.name,
                     description: data.description,
+                    color: data.color,
                 },
             }),
     });
@@ -23,7 +24,7 @@ const getBookshelves = async () => {
 };
 
 // READ a bookshelf by ID
-const getBookshelf = async (id: string):  Promise<BookshelfSchema> => {
+const getBookshelf = async (id: string): Promise<BookshelfSchema> => {
     const res = await db.bookshelf.findFirst({
         where: { id },
     });
@@ -32,25 +33,27 @@ const getBookshelf = async (id: string):  Promise<BookshelfSchema> => {
         action: "update",
         name: res?.name || "",
         description: res?.description || "",
+        color: res?.color || "#7f22fe",
         id,
-    }
-}
+    };
+};
 
 // UPDATE an existing bookshelf
 const updateBookshelf = async (data: BookshelfSchema) => {
-    if (data.action === "update"){
+    if (data.action === "update") {
         await executeAction({
-            actionFn: () => 
+            actionFn: () =>
                 db.bookshelf.update({
                     where: { id: data.id },
                     data: {
                         name: data.name,
                         description: data.description,
+                        color: data.color,
                     },
-                })
-        })
+                }),
+        });
     }
-}
+};
 
 // DELETE a bookshelf by ID
 const deleteBookshelf = async (id: string) => {
@@ -62,11 +65,9 @@ const deleteBookshelf = async (id: string) => {
     });
 };
 
-
-
-export { 
-    createBookshelf, 
-    getBookshelves, 
+export {
+    createBookshelf,
+    getBookshelves,
     getBookshelf,
     updateBookshelf,
     deleteBookshelf,

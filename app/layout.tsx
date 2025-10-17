@@ -3,11 +3,11 @@ import localFont from "next/font/local";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+import Providers from "@/components/provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
-import Providers from "@/components/provider";
 
 const inter = localFont({
     src: "./fonts/Inter-VF.ttf",
@@ -44,9 +44,7 @@ export default function RootLayout({
             <body
                 className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
             >
-                    <Providers>
-                            {children}
-                    </Providers>
+                <Providers>{children}</Providers>
             </body>
         </html>
     );

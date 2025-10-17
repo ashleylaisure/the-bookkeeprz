@@ -238,7 +238,7 @@ model Bookshelf {
 
   name        String
   description String?
-  // color       String? @default("#6366F1")
+  color       String @default("#7f22fe")
   // isDefault   Boolean @default(false)
 
   bookshelfBooks BookshelfBook[]
