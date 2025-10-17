@@ -26,7 +26,7 @@ const BookshelfCard = () => {
             <NoItemsFound
                 heading="No Bookshelves Found"
                 subheading="Looks like you haven't created any bookshelves yet."
-                // image="/images/empty-state.png"
+                buttonText="Create Bookshelf"
                 onClick={() => {
                     setBookshelfDialogOpen(true);
                 }}

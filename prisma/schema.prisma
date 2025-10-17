@@ -109,104 +109,6 @@ enum BookStatus {
   DNF
 }
 
-enum BookGenre {
-  action_thriller
-  action_adventure_fiction
-  apocalyptic_sci_fi
-  art_photography
-  autobiography_memoir
-  biography
-  body_horror
-  caper
-  childrens_fiction
-  classic_fiction
-  colonization_sci_fi
-  comedy_horror
-  conspiracy_thriller
-  contemporary_fiction
-  contemporary_romance
-  cozy_mystery
-  dark_fantasy
-  dark_romance
-  disaster_thriller
-  erotic_romance
-  espionage_thriller
-  essays
-  fairy_tales
-  fantasy
-  fantasy_romance_romantasy
-  folktales
-  food_drink
-  forensic_thriller
-  gothic_horror
-  gothic_romance
-  graphic_novel
-  gumshoe_detective_mystery
-  hard_sci_fi
-  heroic_fantasy
-  high_fantasy
-  historical_fantasy
-  historical_fiction
-  historical_mystery
-  historical_romance
-  historical_thriller
-  history
-  horror
-  howdunnits
-  how_to_guides
-  humanities_social_sciences
-  humor
-  legal_thriller
-  lgbtq
-  literary_fiction
-  locked_room_mystery
-  lovecraftian_cosmic_horror
-  low_fantasy
-  magical_realism
-  military_sci_fi
-  mind_uploading_sci_fi
-  mystery
-  mythic_fantasy
-  new_adult
-  noir
-  parallel_world_sci_fi
-  paranormal_horror
-  paranormal_romance
-  paranormal_thriller
-  parenting
-  philosophy
-  post_apocalyptic_horror
-  procedural_hard_boiled_mystery
-  psychological_horror
-  psychological_thriller
-  quiet_horror
-  regency
-  religion_spirituality
-  religious_thriller
-  romance
-  romantic_comedy
-  romantic_suspense
-  satire
-  science_technology
-  science_fiction
-  sci_fi_romance
-  self_help
-  short_story
-  slasher
-  soft_sci_fi
-  space_opera
-  space_western
-  steampunk
-  supernatural_mystery
-  thriller
-  travel
-  true_crime
-  urban_fantasy
-  western
-  womens_fiction
-  young_adult
-}
-
 
 model Book {
   id        String   @id @default(uuid())
@@ -214,17 +116,17 @@ model Book {
   updatedAt DateTime @updatedAt
 
   title       String
-  author      String
+  author      String?
   description String?
   totalPages  Int?
-  // genre       BookGenre?
+  genre       String?
   coverImage  String?
   format      BookFormat
   status      BookStatus @default(TBR)
   dateStarted DateTime?
   dateFinished DateTime?
 
-  bookshelfBooks BookshelfBook[]
+  bookshelves   Bookshelf[] @relation("book_bookshelf")
   // userId String
   // user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -241,27 +143,27 @@ model Bookshelf {
   color       String @default("#7f22fe")
   // isDefault   Boolean @default(false)
 
-  bookshelfBooks BookshelfBook[]
+  books       Book[] @relation("book_bookshelf")
   // userId String
   // user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("bookshelf")
+  @@map("bookshelves")
 }
 
 // join table for many-to-many relation between Book and Bookshelves
-model BookshelfBook {
-  id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+// model BookshelfBook {
+//   id          String   @id @default(uuid())
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
 
   // A book can exist on multiple shelves ✅
-  book          Book     @relation(fields: [bookId], references: [id])
-  bookId        String   
+  // book          Book     @relation(fields: [bookId], references: [id])
+  // bookId        String   
   // Each shelf can contain multiple books ✅
-  bookshelf     Bookshelf @relation(fields: [bookshelfId], references: [id])
-  bookshelfId   String
+  // bookshelf     Bookshelf @relation(fields: [bookshelfId], references: [id])
+  // bookshelfId   String
 
   // ✅ Prevents duplicates of the same book–shelf pair
-  @@unique([bookId, bookshelfId])
-  @@map("BookshelfBooks")
-}
+//   @@unique([bookId, bookshelfId])
+//   @@map("BookshelfBooks")
+// }
