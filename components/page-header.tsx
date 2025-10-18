@@ -1,12 +1,11 @@
 import { cn } from "@/lib/utils";
 
-type PageHeaderVariant = "default" | "centered" | "compact";
 
 interface PageHeaderProps {
     title: string;
     description?: string;
     action?: React.ReactNode;
-    variant?: PageHeaderVariant;
+    variant?: "default" | "centered" | "compact";
     className?: string;
 }
 

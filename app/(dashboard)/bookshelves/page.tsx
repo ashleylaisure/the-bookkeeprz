@@ -11,6 +11,7 @@ const BookshelfPage = () => {
                 title="Bookshelves"
                 description="Organize your books into custom shelves"
                 action={<BookshelfForm />}
+                variant="default"
             />
             <BookshelfCard />
         </>

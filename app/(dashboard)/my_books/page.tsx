@@ -10,7 +10,6 @@ const MyBooksPage = () => {
                 title="My Books"
                 description="Manage your personal book collection"
                 action={<BookForm />}
-                variant="centered"
             />
             <BookTable />
         </>

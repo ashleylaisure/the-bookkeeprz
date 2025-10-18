@@ -14,33 +14,40 @@ const bookSchema = z.intersection(
             .string()
             .trim()
             .max(200, "Author must be less than 200 characters")
+            .nullable()
             .optional(),
         description: z
             .string()
             .trim()
             .max(1000, "Description is too long")
+            .nullable()
             .optional(),
         totalPages: z
             .number({ error: "Total pages must be a number" })
             .int()
             .positive("Total pages must be greater than 0")
+            .nullable()
             .optional(),
         genre: z
             .string()
             .trim()
             .max(100, "Genre must be less than 100 characters")
+            .nullable()
             .optional(),
         coverImage: z
             .string()
-            .url("Cover image must be a valid URL")
+            // .url("Cover image must be a valid URL")
+            .nullable()
             .optional(),
-        format: BookFormatEnum,
+        format: BookFormatEnum.default("PAPERBACK"),
         status: BookStatusEnum.default("TBR"),
         dateStarted: z
             .date()
+            .nullable()
             .optional(),
         dateFinished: z
             .date()
+            .nullable()
             .optional(),
     }),
     z.discriminatedUnion("action", [
@@ -59,13 +66,13 @@ const bookDefaultValues: BookSchema = {
     title: "",
     author: "",
     description: "",
-    totalPages: 0,
+    totalPages: null,
     genre: "",
     coverImage: "",
     format: "PAPERBACK",
     status: "TBR",
-    dateStarted: new Date(),
-    dateFinished: new Date(),
+    dateStarted: null,
+    dateFinished: null,
 };
 
 export { bookSchema, bookDefaultValues, type BookSchema };

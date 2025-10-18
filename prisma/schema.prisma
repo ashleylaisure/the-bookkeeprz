@@ -121,7 +121,7 @@ model Book {
   totalPages  Int?
   genre       String?
   coverImage  String?
-  format      BookFormat
+  format      BookFormat @default(PAPERBACK)
   status      BookStatus @default(TBR)
   dateStarted DateTime?
   dateFinished DateTime?

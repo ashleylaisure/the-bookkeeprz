@@ -1,3 +1,5 @@
+'use server'
+
 import { executeAction } from "@/lib/excuteAction";
 import db from "@/lib/prisma";
 import { BookSchema } from "@/types/schema/bookSchema";

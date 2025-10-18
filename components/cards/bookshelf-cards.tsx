@@ -24,7 +24,7 @@ const BookshelfCard = () => {
     if (bookshelvesQuery.data?.length === 0) {
         return (
             <NoItemsFound
-                heading="No Bookshelves Found"
+                heading="No Bookshelves Yet"
                 subheading="Looks like you haven't created any bookshelves yet."
                 buttonText="Create Bookshelf"
                 onClick={() => {

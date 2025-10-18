@@ -51,7 +51,7 @@ const BookshelfForm = ({ smallTrigger }: { smallTrigger?: boolean }) => {
     const createBookshelf = useCreateBookshelf();
     const updateBookshelf = useUpdateBookshelf();
 
-    const loading = createBookshelf.isPending || updateBookshelf.isPending;
+    const isLoading = createBookshelf.isPending || updateBookshelf.isPending;
 
     const handleDialogChange = (open: boolean) => {
         setBookshelfDialogOpen(open);
@@ -171,7 +171,7 @@ const BookshelfForm = ({ smallTrigger }: { smallTrigger?: boolean }) => {
 
                         <LoadingButton
                             type="submit"
-                            loading={loading}
+                            loading={isLoading}
                             loadingText="Saving..."
                             className="min-h-12 w-full cursor-pointer"
                         >
