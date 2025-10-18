@@ -10,9 +10,16 @@ const createBook = async (data: BookSchema) => {
         actionFn: () => 
             db.book.create({
                 data: {
-                    ...data,
-                    dateStarted: data.dateStarted ? new Date(data.dateStarted) : undefined,
-                    dateFinished: data.dateFinished ? new Date(data.dateFinished) : undefined,
+                    title: data.title,
+                    author: data.author,
+                    description: data.description,
+                    totalPages: data.totalPages,
+                    genre: data.genre,
+                    coverImage: data.coverImage,
+                    format: data.format,
+                    status: data.status,
+                    dateStarted: data.dateStarted,
+                    dateFinished: data.dateFinished
                 }
             })
     })
@@ -33,14 +40,14 @@ const getBookById = async (id: string): Promise<BookSchema | null> => {
     return {
         ...res,
         action: "update" as const,
-        title: res.title ?? undefined,
-        author: res.author ?? undefined,
-        description: res.description ?? undefined,
-        totalPages: res.totalPages ?? undefined,
-        genre: res.genre ?? undefined,
-        coverImage: res.coverImage ?? undefined,
-        dateStarted: res.dateStarted ?? undefined,
-        dateFinished: res.dateFinished ?? undefined,
+        title: res.title ?? "",
+        author: res.author ?? "",
+        description: res.description ?? "",
+        totalPages: res.totalPages ?? 0,
+        genre: res.genre ?? "",
+        coverImage: res.coverImage ?? "",
+        dateStarted: res.dateStarted ?? null,
+        dateFinished: res.dateFinished ?? null,
         id,
     };
 }

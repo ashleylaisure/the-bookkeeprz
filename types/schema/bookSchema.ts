@@ -1,55 +1,62 @@
 import z from "zod";
 
-const BookFormatEnum = z.enum(["HARDCOVER", "PAPERBACK", "EBOOK", "AUDIOBOOK"]);
-const BookStatusEnum = z.enum(["TBR", "READING", "READ", "PAUSED", "DNF"]);
-
 const bookSchema = z.intersection(
-    z.object({
-        title: z
-            .string()
-            .trim()
-            .min(1, "Title is required")
-            .max(255, "Title must be less than 255 characters"),
-        author: z
-            .string()
-            .trim()
-            .max(200, "Author must be less than 200 characters")
-            .nullable()
-            .optional(),
-        description: z
-            .string()
-            .trim()
-            .max(1000, "Description is too long")
-            .nullable()
-            .optional(),
-        totalPages: z
-            .number({ error: "Total pages must be a number" })
-            .int()
-            .positive("Total pages must be greater than 0")
-            .nullable()
-            .optional(),
-        genre: z
-            .string()
-            .trim()
-            .max(100, "Genre must be less than 100 characters")
-            .nullable()
-            .optional(),
-        coverImage: z
-            .string()
-            // .url("Cover image must be a valid URL")
-            .nullable()
-            .optional(),
-        format: BookFormatEnum.default("PAPERBACK"),
-        status: BookStatusEnum.default("TBR"),
-        dateStarted: z
-            .date()
-            .nullable()
-            .optional(),
-        dateFinished: z
-            .date()
-            .nullable()
-            .optional(),
-    }),
+z.object({
+    title: z
+        .string()
+        .trim()
+        .min(1, "Title is required")
+        .max(255, "Title must be less than 255 characters"),
+    author: z
+        .string()
+        .trim()
+        .max(200, "Author must be less than 200 characters")
+        .optional(),
+    description: z
+        .string()
+        .trim()
+        .max(1000, "Description is too long")
+        .optional(),
+    totalPages: z
+        .string()
+        .transform((val) => val ? Number(val) : undefined)
+        .refine((val) => val === undefined || (typeof val === "number" && val > 0), {
+            message: "Total Pages must be a positive number",
+        })
+        .optional(),
+    genre: z
+        .string()
+        .optional(),
+    coverImage: z
+        .string()
+        // .url("Cover image must be a valid URL")
+        .optional(),
+    format: z
+        .string()
+        .default("PAPERBACK"),
+    status: z
+        .string()
+        .default("TBR"),
+    dateStarted: z
+        .date()
+        .nullable()
+        .optional(),
+    dateFinished: z
+        .date()
+        .nullable()
+        .optional(),
+}).superRefine((data, ctx) => {
+  const dateStarted = data.dateStarted as Date | null | undefined;
+  const dateFinished = data.dateFinished as Date | null | undefined;
+
+  if (dateStarted && dateFinished && dateFinished < dateStarted) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Date Finished cannot be before Date Started",
+      path: ["dateFinished"],
+    });
+  }
+}),
     z.discriminatedUnion("action", [
         z.object({ action: z.literal("create") }),
         z.object({
@@ -66,7 +73,7 @@ const bookDefaultValues: BookSchema = {
     title: "",
     author: "",
     description: "",
-    totalPages: null,
+    totalPages: undefined,
     genre: "",
     coverImage: "",
     format: "PAPERBACK",

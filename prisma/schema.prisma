@@ -94,22 +94,6 @@ model Verification {
 // # -----------------------------------------------------------------------------
 // # Book Model:
 // # -----------------------------------------------------------------------------
-enum BookFormat {
-  HARDCOVER
-  PAPERBACK
-  EBOOK
-  AUDIOBOOK
-}
-
-enum BookStatus {
-  TBR
-  READING
-  READ
-  PAUSED
-  DNF
-}
-
-
 model Book {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -121,8 +105,8 @@ model Book {
   totalPages  Int?
   genre       String?
   coverImage  String?
-  format      BookFormat @default(PAPERBACK)
-  status      BookStatus @default(TBR)
+  format      String @default("PAPERBACK")
+  status      String @default("TBR")
   dateStarted DateTime?
   dateFinished DateTime?
 
